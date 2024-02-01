@@ -24,18 +24,21 @@
                   SelectedItem="{Binding SelectedProducti}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="{Binding Name}"/>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Name}"/>
                         <Label Content="{Binding Quantity}"/>
                         <Label Content="{Binding Price}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
         </ListBox>
+        <GroupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Width="150" Height="60"
+                  DataContext="{Binding SelectedProducti}">
+            <StackPanel>
+                <TextBox Text="{Binding Name}"/>
+                <TextBox Text="{Binding Quantity}"/>
+                <TextBox Text="{Binding Price}"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>
