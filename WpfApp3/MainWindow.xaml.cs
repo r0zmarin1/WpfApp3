@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static WpfApp3.MainWindow;
 
 namespace WpfApp3
 {
@@ -25,7 +29,7 @@ namespace WpfApp3
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public List<Producti> Products { get; set; }
+        public ObservableCollection<Producti> Products { get; set; }
         public Producti SelectedProducti
         {
             get => selectedProducti;
@@ -40,7 +44,7 @@ namespace WpfApp3
         {
             InitializeComponent();
 
-            Products = new List<Producti>();
+            Products = new ObservableCollection<Producti>();
             Products.Add(new Producti
             {
                 Name = "Помидоры",
@@ -82,9 +86,43 @@ namespace WpfApp3
 
         public class Producti
         {
-            public string Name { get; set; }
-            public int Price { get; set; }
-            public string Quantity { get; set; }
+            public string Name { get; set; } = "";
+            public int Price { get; set; } = 0;
+            public string Quantity { get; set; } = "";
+            public byte[] Img { get; set; }
+
+        }
+
+        private void Button(object sender, RoutedEventArgs e) 
+        {
+            Products.Add(new Producti());
+            PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(SelectedProducti)));
+        }
+
+        private void Button1(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProducti != null)
+                MessageBox.Show("Выбран обьект");
+                Products.Remove(SelectedProducti);
+            PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(SelectedProducti)));
+
+        }
+
+        private void Button2(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProducti != null)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.ShowDialog();
+                string path = openFileDialog.FileName;
+                SelectedProducti.Img = File.ReadAllBytes(path);
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(SelectedProducti)));
+            }
+                
+
         }
     }
 }

@@ -32,12 +32,18 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <GroupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Width="150" Height="58"
+        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="150" Height="58" Content="Добавить" FontSize="30" Background="Lavender" FontFamily="Century Gothic" Click="Button"/>
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="150" Height="58" FontSize="30" Background="Lavender" FontFamily="Century Gothic" Click="Button2">
+            <TextBlock Text="Выбрать картинку" TextWrapping="Wrap" FontSize="20" TextAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="150" Height="58" Content="Удалить" FontSize="30" Background="Lavender" FontFamily="Century Gothic" Click="Button1"/>
+        <GroupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Width="150" Height="150"
                   DataContext="{Binding SelectedProducti}">
             <StackPanel>
                 <TextBox Text="{Binding Name}"/>
                 <TextBox Text="{Binding Quantity}"/>
                 <TextBox Text="{Binding Price}"/>
+                <Image Width="100" Source="{Binding Img}"/>
             </StackPanel>
         </GroupBox>
     </Grid>
